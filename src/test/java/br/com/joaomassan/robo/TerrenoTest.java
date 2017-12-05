@@ -1,6 +1,8 @@
 package br.com.joaomassan.robo;
 
 import org.junit.Assert;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
@@ -37,7 +39,12 @@ public class TerrenoTest {
     @Test
     public void deveAssegurarPosicoesValidas() {
         Terreno terreno = Terreno.quadrado(5);
-        //assertTrue(terreno.podeMoverPara(Posicao.of(0, 0, N)));
+        assertTrue(terreno.podeMoverPara(Ponto.em(0, 0)));
+        assertTrue(terreno.podeMoverPara(Ponto.em(1, 1)));
+        assertTrue(terreno.podeMoverPara(Ponto.em(2, 2)));
+        assertTrue(terreno.podeMoverPara(Ponto.em(3, 3)));
+        assertTrue(terreno.podeMoverPara(Ponto.em(4, 4)));
+        assertFalse(terreno.podeMoverPara(Ponto.em(5, 5)));
     }
 
 }

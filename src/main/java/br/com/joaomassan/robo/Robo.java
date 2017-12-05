@@ -1,53 +1,35 @@
 package br.com.joaomassan.robo;
 
+import br.com.joaomassan.robo.command.CommandFactory;
 import java.util.regex.Pattern;
-import lombok.Data;
+import lombok.Getter;
 
 /**
  *
  * @author jaumzera
  */
-@Data
 public class Robo {
 
     private static final Pattern COMMANDOS_ACEITOS = Pattern.compile("[LRM]+");
 
+    @Getter
     private Posicao posicao;
 
     private final Terreno terreno;
 
+    private CommandFactory commandFactory;
+
     public Robo(Terreno terreno) {
         this.terreno = terreno;
         this.posicao = new Posicao(Ponto.em(0, 0), Sentidos.N);
+        this.commandFactory = CommandFactory.criarPara(this);
     }
 
     public void mover(String instrucoes) {
         validarEntrada(instrucoes);
         String[] comandos = instrucoes.split("");
-
         for (String comando : comandos) {
-            Posicao novaPosicao = null;
-
-            switch (comando) {
-                case "M":
-                    novaPosicao = posicao.mover();
-                    break;
-                case "L":
-                    novaPosicao = posicao.virarEsquerda();
-                    break;
-                case "R":
-                    novaPosicao = posicao.virarDireita();
-                    break;
-            }
-
-            if (novaPosicao != null
-                    && terreno.podeMoverPara(novaPosicao.getPonto())) {
-                posicao = novaPosicao;
-            } else {
-                throw new IllegalStateException(
-                        "A posição especificada ("
-                        + posicao.toString() + ") é inválida.");
-            }
+            commandFactory.parse(comando).execute();
         }
     }
 
@@ -57,6 +39,33 @@ public class Robo {
                     + "\t L      (left) vira à esquerda\n"
                     + "\t R      (right) vira à direita\n "
                     + "\t M      (move) faz o robo andar na direção configurada.");
+        }
+    }
+
+    public void virarParaDireita() {
+        Posicao novaPosicao = posicao.virarDireita();
+        if (terreno.podeMoverPara(novaPosicao.getPonto())) {
+            posicao = novaPosicao;
+        } else {
+            throw new IllegalArgumentException("Movimento não permitido");
+        }
+    }
+
+    public void virarParaEsquerda() {
+        Posicao novaPosicao = posicao.virarEsquerda();
+        if (terreno.podeMoverPara(novaPosicao.getPonto())) {
+            posicao = novaPosicao;
+        } else {
+            throw new IllegalArgumentException("Movimento não permitido");
+        }
+    }
+
+    public void mover() {
+        Posicao novaPosicao = posicao.mover();
+        if (terreno.podeMoverPara(novaPosicao.getPonto())) {
+            posicao = novaPosicao;
+        } else {
+            throw new IllegalArgumentException("Movimento não permitido");
         }
     }
 }

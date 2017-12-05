@@ -23,28 +23,28 @@ public class RoboTest {
         Assert.assertEquals("{0,0,N}", robo.getPosicao().toString());
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void deveNaoSairDoTerrenoAOeste() {
         Terreno terreno = Terreno.quadrado(5);
         Robo robo = new Robo(terreno);
         robo.mover("LM");
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void deveNaoSairDoTerrenoALeste() {
         Terreno terreno = Terreno.quadrado(5);
         Robo robo = new Robo(terreno);
         robo.mover("RMMMMM");
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void deveNaoSairDoTerrenoAOSul() {
         Terreno terreno = Terreno.quadrado(5);
         Robo robo = new Robo(terreno);
         robo.mover("RRM");
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void deveNaoSairDoTerrenoAONorte() {
         Terreno terreno = Terreno.quadrado(5);
         Robo robo = new Robo(terreno);

@@ -42,28 +42,28 @@ public class Posicao {
         return novaPosicao;
     }
 
+    private Posicao deslocarParaNorte() {
+        return new Posicao(ponto.moverYEm(1), Sentidos.N);
+    }
+
+    private Posicao deslocarParaSul() {
+        return new Posicao(ponto.moverYEm(-1), Sentidos.S);
+    }
+
+    private Posicao deslocarParaLeste() {
+        return new Posicao(ponto.moverXEm(1), Sentidos.E);
+    }
+
+    private Posicao deslocarParaOeste() {
+        return new Posicao(ponto.moverXEm(-1), Sentidos.W);
+    }
+
     public Posicao virarEsquerda() {
         return new Posicao(ponto, sentido.virarEsquerda());
     }
 
     public Posicao virarDireita() {
         return new Posicao(ponto, sentido.virarDireita());
-    }
-
-    public Posicao deslocarParaNorte() {
-        return new Posicao(ponto.moverYEm(1), Sentidos.N);
-    }
-
-    public Posicao deslocarParaSul() {
-        return new Posicao(ponto.moverYEm(-1), Sentidos.S);
-    }
-
-    public Posicao deslocarParaLeste() {
-        return new Posicao(ponto.moverXEm(1), Sentidos.E);
-    }
-
-    public Posicao deslocarParaOeste() {
-        return new Posicao(ponto.moverXEm(-1), Sentidos.W);
     }
 
     @Override
